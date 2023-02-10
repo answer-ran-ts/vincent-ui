@@ -1,4 +1,4 @@
-# vincent-ui
+# vincentman-ui
 
 ## Project setup
 ```
