@@ -1,7 +1,7 @@
 import Button from './button';
 import KeepAlive from './keep-alive';
 
-import './fonts/font.scss';
+import './fonts/iconfont.css';
 // 存储组件列表
 const components = [Button];
 

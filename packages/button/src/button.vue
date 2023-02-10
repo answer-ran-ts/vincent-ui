@@ -1,20 +1,21 @@
 <template>
   <button
-    class="vs-button"
+    class="v-button"
     :disabled="disabled"
     @click="handleClick"
     :class="[
-      type ? `vs-button--${type}` : '',
-      buttonSize ? `vs-button--${buttonSize}` : '',
+      type ? `v-button--${type}` : '',
+      buttonSize ? `v-button--${buttonSize}` : '',
       {
         'is-plain': plain,
         'is-round': round,
         'is-circle': circle,
         'is-disabled': disabled,
+        'is-ripple': ripple,
       },
     ]"
   >
-    <i :class="icon" v-if="icon"></i>
+    <i class="iconfont" :class="icon" v-if="icon"></i>
     <!-- 如果没有传入插槽的时候才显示 -->
     <span v-if="$slots.default">
       <slot></slot>
@@ -23,7 +24,7 @@
 </template>
 <script>
 export default {
-  name: 'VsButton',
+  name: 'VButton',
   props: {
     buttonSize: String,
     type: {
@@ -39,6 +40,10 @@ export default {
       default: false,
     },
     circle: {
+      type: Boolean,
+      default: false,
+    },
+    ripple: {
       type: Boolean,
       default: false,
     },
@@ -59,7 +64,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.vs-button {
+.v-button {
   display: inline-block;
   line-height: 1;
   white-space: nowrap;
@@ -96,5 +101,56 @@ export default {
     border-color: #66b1ff;
     color: #fff;
   }
+  &:active {
+    color: #fff;
+    background-color: #409eff;
+    border-color: #409eff;
+  }
+}
+.is-ripple {
+  overflow: hidden;
+  position: relative;
+  transition: background-color 0.3s linear, border 0.3s linear;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, rgba(0, 0, 0, 0) 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10);
+    opacity: 0;
+    transition: transform 0.5s, opacity 1s;
+  }
+  &:active:after {
+    transform: scale(0);
+    opacity: 0.2;
+    transition: 0s;
+  }
+}
+.is-plain {
+  color: #fff;
+  background-color: #409eff;
+  border-color: #409eff;
+}
+.is-round {
+  border-radius: 20px;
+}
+.v-button--small {
+  font-size: 12px;
+  padding: 7px 15px;
+}
+.v-button--mini {
+  font-size: 12px;
+  padding: 4px 15px;
+}
+.v-button--big {
+  font-size: 14px;
+  padding: 12px 15px;
 }
 </style>
